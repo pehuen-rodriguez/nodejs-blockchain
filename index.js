@@ -1,12 +1,19 @@
 const readline = require("readline");
+const { App } = require("./app");
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-rl.question("Buy or sell? ", function (operation) {
-  rl.question("Amount? ", function (amount) {
-    console.log(`Cool, let's check for ${operation}ing ${amount}`);
+const app = new App();
+app.init();
+
+rl.question("Price? ", (price) => {
+  rl.question("Buy or sell? ", (type) => {
+    rl.question("How many? ", (amount) => {
+      app.putOrder({ price, type, amount });
+    });
   });
 });
 
