@@ -14,7 +14,7 @@ const askForOrder = () => {
   rl.question("Price? ", (price) => {
     rl.question("Buy or sell? ", (type) => {
       rl.question("How many? ", (amount) => {
-        app.putOrder({ uuid: uuidv4(), price, type, parseInt(amount) });
+        app.putOrder({ uuid: uuidv4(), price, type, amount: parseInt(amount) });
         askForOrder();
       });
     });
