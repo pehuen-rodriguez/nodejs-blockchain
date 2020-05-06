@@ -71,6 +71,10 @@ function Orderbook() {
     );
   });
 
+  this.on("match", (order, fullfillOrders) => {
+    console.log("there was a match", order, fullFillOrders);
+  })
+
   const getBucket = (order) => {
     // get me the list of orders for the corresponding price: a bucket
     // initialize if there's no price attached
