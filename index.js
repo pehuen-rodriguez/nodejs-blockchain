@@ -1,5 +1,6 @@
 const readline = require("readline");
 const { App } = require("./app");
+const { v4: uuidv4 } = require("uuid");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -13,12 +14,12 @@ const askForOrder = () => {
   rl.question("Price? ", (price) => {
     rl.question("Buy or sell? ", (type) => {
       rl.question("How many? ", (amount) => {
-        app.putOrder({ price, type, amount });
+        app.putOrder({ uuid: uuidv4(), price, type, parseInt(amount) });
         askForOrder();
       });
     });
   });
-}
+};
 
 askForOrder();
 
