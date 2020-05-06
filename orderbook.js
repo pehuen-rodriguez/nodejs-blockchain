@@ -57,7 +57,7 @@ function Orderbook() {
         // console.log("values", order.amount, opposite.amount, matchedAmount);
         oppositeBucketMatched.push({
           ...opposite,
-          ammount: order.amount + opposite.amount - matchedAmount,
+          amount: order.amount + opposite.amount - matchedAmount,
         });
         this.emit("match", order, oppositeBucketMatched);
       }
@@ -66,14 +66,21 @@ function Orderbook() {
       bucket[order.type].push(order);
     }
     console.log(
-      "current shape of the orderbook",
+      "shape of the orderbook after put order",
       JSON.stringify(this.orderbook)
     );
   });
 
-  this.on("match", (order, fullfillOrders) => {
-    console.log("there was a match", order, fullfillOrders);
-  })
+  this.on("match", (order, fullfilledOrders) => {
+    const bucket = getBucket(order);
+    const oppositeType = opposite(order.type);
+    const match = { [order.type]: [order], [oppositeType]: fullfilledOrders };
+    bucket.match.push(match);
+    console.log(
+      "shape of the orderbook after match",
+      JSON.stringify(this.orderbook)
+    );
+  });
 
   const getBucket = (order) => {
     // get me the list of orders for the corresponding price: a bucket
