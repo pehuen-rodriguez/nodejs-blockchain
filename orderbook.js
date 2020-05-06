@@ -39,7 +39,7 @@ function Orderbook() {
         bucket[order.type].push(order);
         this.emit(
           "match",
-          {...order, amount: order.amount - matchedAmount},
+          { ...order, amount: order.amount - matchedAmount },
           oppositeOrdersMatched
         );
       } else if (matchedAmount === order.amount) {
@@ -52,8 +52,6 @@ function Orderbook() {
       // no options. Just push it
       bucket[order.type].push(order);
     }
-
-    console.log(bucket);
   });
 
   const getBucket = (order) => {
@@ -68,7 +66,7 @@ function Orderbook() {
   };
 
   const opposite = (type) => {
-    type === "sell" ? "buy" : "sell";
+    return type === "sell" ? "buy" : "sell";
   };
 }
 

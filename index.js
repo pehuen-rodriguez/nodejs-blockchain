@@ -9,13 +9,18 @@ const rl = readline.createInterface({
 const app = new App();
 app.init();
 
-rl.question("Price? ", (price) => {
-  rl.question("Buy or sell? ", (type) => {
-    rl.question("How many? ", (amount) => {
-      app.putOrder({ price, type, amount });
+const askForOrder = () => {
+  rl.question("Price? ", (price) => {
+    rl.question("Buy or sell? ", (type) => {
+      rl.question("How many? ", (amount) => {
+        app.putOrder({ price, type, amount });
+        askForOrder();
+      });
     });
   });
-});
+}
+
+askForOrder();
 
 rl.on("close", function () {
   console.log("\nBYE BYE !!!");
