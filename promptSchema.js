@@ -6,8 +6,8 @@ module.exports = {
       required: true,
     },
     type: {
-      pattern: /^(buy|sale)$/,
-      message: "Operation type is either buy or sale",
+      pattern: /^(buy|sell)$/,
+      message: "Operation type is either buy or sell",
       required: true,
     },
     amount: {
