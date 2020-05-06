@@ -1,4 +1,10 @@
+"use strict";
+
 const { Orderbook } = require("./orderbook");
+const Link = require("grenache-nodejs-link");
+
+const server = require("./server");
+const client = require("./client");
 
 function App() {
   this.orderbook = new Orderbook();
@@ -10,8 +16,16 @@ function App() {
   });
 
   this.init = () => {
-    // Connect here to the grape?
-    // Create the grape?
+    const link = new Link({
+      grape: "http://127.0.0.1:30001",
+    });
+    link.start();
+
+    server.init(link, (order) => {
+      console.log("order", order);
+      this.orderbook.putOrder(order);
+    });
+    client.init(link);
   };
 
   this.stop = () => {
@@ -19,9 +33,7 @@ function App() {
   };
 
   this.putOrder = (order) => {
-    // create an order
-    // inform everybody
-    return this.orderbook.putOrder(order);
+    client.putOrder(order);
   };
 }
 
