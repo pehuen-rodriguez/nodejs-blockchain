@@ -72,7 +72,7 @@ function Orderbook() {
   });
 
   this.on("match", (order, fullfillOrders) => {
-    console.log("there was a match", order, fullFillOrders);
+    console.log("there was a match", order, fullfillOrders);
   })
 
   const getBucket = (order) => {
