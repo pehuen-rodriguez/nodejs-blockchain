@@ -3,12 +3,15 @@ const { Orderbook } = require("./orderbook");
 function App() {
   this.orderbook = new Orderbook();
 
-  this.orderbook.on("match", () => {
-    console.log("there was a match");
+  this.orderbook.on("match", (order, fullFillOrders) => {
+    // found a match
+    // inform everybody? Think not
+    console.log("there was a match", order, fullFillOrders);
   });
 
   this.init = () => {
     // Connect here to the grape?
+    // Create the grape?
   };
 
   this.stop = () => {
@@ -17,9 +20,6 @@ function App() {
 
   this.putOrder = (order) => {
     // create an order
-    // inform everybody
-
-    // find a match
     // inform everybody
     return this.orderbook.putOrder(order);
   };
