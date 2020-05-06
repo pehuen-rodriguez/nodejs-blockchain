@@ -1,5 +1,5 @@
 const prompt = require("prompt");
-const { App } = require("./app");
+const { App } = require("./lib/app");
 const { v4: uuidv4 } = require("uuid");
 const schema = require("./promptSchema");
 
