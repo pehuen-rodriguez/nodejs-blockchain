@@ -11,6 +11,7 @@
   "dependencies": {
     "grenache-nodejs-http": "^0.7.8",
     "grenache-nodejs-link": "^0.7.12",
+    "prompt": "^1.0.0",
     "uuid": "^8.0.0"
   }
 }

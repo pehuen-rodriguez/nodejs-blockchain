@@ -14,8 +14,8 @@ module.exports = {
       { timeout: 10000 },
       (err, data) => {
         if (err) {
-          console.error(err);
-          // process.exit(-1);
+          console.error("An error ocurred. Shutting down \n", err);
+          process.exit(-1);
         }
         console.log(data);
       }

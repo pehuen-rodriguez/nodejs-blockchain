@@ -1,9 +1,8 @@
 const { PeerRPCServer } = require("grenache-nodejs-http");
-let serverPeer;
 
 module.exports = {
   init: (link, receiveOrder) => {
-    serverPeer = new PeerRPCServer(link, {
+    const serverPeer = new PeerRPCServer(link, {
       timeout: 300000,
     });
     serverPeer.init();
@@ -18,7 +17,9 @@ module.exports = {
 
     service.on("request", (rid, key, payload, handler) => {
       receiveOrder(payload);
-      handler.reply(null, { msg: `order with uuid ${payload.uuid} received ok` });
+      handler.reply(null, {
+        msg: `order with uuid ${payload.uuid} received ok`,
+      });
     });
   },
 };
