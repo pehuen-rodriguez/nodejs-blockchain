@@ -10,8 +10,7 @@ prompt.start();
 
 const askForOrder = () => {
   prompt.get(schema, function (err, {price, type, amount}) {
-    app.putOrder({ uuid: uuidv4(), price, type, amount: parseFloat(amount) });
-    askForOrder();
+    app.putOrder({ uuid: uuidv4(), price, type, amount: parseFloat(amount) }, askForOrder);
   });
 };
 
