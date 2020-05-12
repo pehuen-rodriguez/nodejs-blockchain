@@ -39,3 +39,8 @@ const askForOrder = async () => {
 };
 
 askForOrder();
+
+process.on('SIGINT', (code) => {
+  app.end();
+  process.exit();
+});
