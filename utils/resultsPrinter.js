@@ -25,11 +25,25 @@ module.exports = {
           orderbook[priceKey][operationKey] &&
           orderbook[priceKey][operationKey].length
         ) {
-          orderbook[priceKey][operationKey].forEach(
-            ({ type, uuid, amount }) => {
-              console.log("Type:", type, "| Amount:", amount, "| UUID:", uuid);
-            }
-          );
+          if (operationKey === "match") {
+            console.log("  >> MATCHES");
+            orderbook[priceKey][operationKey].forEach((match) => {
+              const matchesKeys = Object.keys(match);
+              matchesKeys.forEach((matchKey) => {
+                match[matchKey].forEach(
+                  ({ type, uuid, amount }) => {
+                    console.log("     Type:", type, "| Amount:", amount, "| UUID:", uuid );
+                  }
+                );
+              });
+            });
+          } else {
+            orderbook[priceKey][operationKey].forEach(
+              ({ type, uuid, amount }) => {
+                console.log("  Type:", type, "| Amount:", amount, "| UUID:", uuid);
+              }
+            );
+          }
         }
       });
     });
