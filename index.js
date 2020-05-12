@@ -1,17 +1,41 @@
-const prompt = require("prompt");
-const { App } = require("./lib/app");
+const inquirer = require("inquirer");
 const { v4: uuidv4 } = require("uuid");
-const schema = require("./promptSchema");
 
-const app = new App();
+const app = require("./lib/app");
+const { orderSchema, operationSchema } = require("./utils/promptSchemas");
+const {
+  printOrderPlacedResults,
+  printShowOrderbook,
+} = require("./utils/resultsPrinter");
+
 app.init();
 
-prompt.start();
+const askForOrder = async () => {
+  try {
+    const { operation } = await inquirer.prompt(operationSchema);
 
-const askForOrder = () => {
-  prompt.get(schema, function (err, {price, type, amount}) {
-    app.putOrder({ uuid: uuidv4(), price, type, amount: parseFloat(amount) }, askForOrder);
-  });
+    if (operation === "Take a look at the orderbook") {
+      printShowOrderbook(app.getOrderbook());
+      return askForOrder();
+    }
+
+    const { price, type, amount } = await inquirer.prompt(orderSchema);
+
+    const order = {
+      uuid: uuidv4(),
+      price,
+      type,
+      amount: parseFloat(amount),
+    };
+    const { localResult, broadcastResults } = await app.placeOrder(order);
+
+    printOrderPlacedResults({ localResult, broadcastResults });
+    askForOrder();
+
+  } catch (err) {
+    console.error(err.message);
+    askForOrder();
+  }
 };
 
 askForOrder();

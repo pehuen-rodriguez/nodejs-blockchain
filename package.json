@@ -12,6 +12,7 @@
     "grenache-grape": "^0.9.10",
     "grenache-nodejs-http": "^0.7.8",
     "grenache-nodejs-link": "^0.7.12",
+    "inquirer": "^7.1.0",
     "prompt": "^1.0.0",
     "uuid": "^8.0.0"
   }
